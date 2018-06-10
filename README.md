@@ -6,7 +6,7 @@ Simulating observations of the galaxy-galaxy strong lensing population as expect
 
 ## License, Credits etc
 
-The code is open access, but please [email me]( mailto:thomas.collett@port.ac.uk) to tell him that you are using it. If you use any of the software or ideas in this repo in your own research, please cit "Collett (2015)."
+The code is open access, but please [email me]( mailto:thomas.collett@port.ac.uk) to tell him that you are using it. If you use any of the software or ideas in this repo in your own research, please cite ["Collett (2015)"](http://adsabs.harvard.edu/abs/2015ApJ...811...20C).
 
 The documentation is deliberately sparse - I'd much rather you email me asking to collaborate than use the code as a black box.
 
@@ -41,7 +41,7 @@ The files are:
 
 The following _should_ work:
 ```
-   pip install git+git://github.com/drphilmarshall/LensPop.git#egg=lenspop --upgrade
+   pip install git+git://github.com/tcollett/LensPop.git#egg=lenspop --upgrade
 ```
 Check with:
 ```

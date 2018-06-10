@@ -10,7 +10,7 @@ setup(
     py_modules = ['distances', 'indexTricks','ndinterp','StochasticObserving','SignaltoNoise',],
     description='Simulating galaxy-scale strong lens populations',
     long_description=open("README.md").read(),
-    package_data={"": ["README.md"]},
+    package_data={'':['README.md'], 'stellarpop':['filters/*.*', 'templates/*.*']},
     include_package_data=True,
     classifiers=[
         "Development Status :: 4 - Beta",

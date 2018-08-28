@@ -438,8 +438,8 @@ class SourcePopulation_(Population):
         return r_phys
 
 
-    def draw_flattening(self,N):
-        y=numpy.ones(N*1.5)*0.3
+    def draw_flattening(self, N):
+        y=numpy.ones(int(N*1.5))*0.3
         e=numpy.random.rayleigh(y)
         q=1-e
         q=q[q>0.2]

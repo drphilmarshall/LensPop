@@ -4,7 +4,7 @@ import numpy,math
 import indexTricks as iT
 
 import matplotlib
-matplotlib.use('TkAgg')
+matplotlib.use('Agg')
 import pylab as plt
 
 import lenspop

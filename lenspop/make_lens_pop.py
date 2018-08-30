@@ -7,8 +7,8 @@ import matplotlib
 matplotlib.use('TkAgg')
 import pylab as plt
 
-import distances
 import lenspop
+import lenspop.distances as distances
 
 # from PopulationFunctions import *
 

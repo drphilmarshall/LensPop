@@ -7,8 +7,8 @@ import pylab as plt
 
 from pylens import *
 import imageSim
-import distances as D
-from .surveys import Survey
+import lenspop.distances as D
+from lenspop.surveys import Survey
 
 from StochasticObserving import SO
 from SignaltoNoise import S2N

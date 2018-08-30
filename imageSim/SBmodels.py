@@ -1,6 +1,6 @@
 from __future__ import absolute_import, division, print_function
-from math import pi
 
+from math import pi
 from .profiles import _Sersic, _Gauss
 from .pointSource import PixelizedModel as PM, GaussianModel as GM
 
@@ -14,7 +14,7 @@ _SersicPars = [['amp','n','pa','q','re','x','y'],
                 ['logamp','n','q','re','theta','x','y']]
 
 class SBModel:
-    def __init__(self,name,pars,convolve=0):
+    def __init__(self, name, pars, convolve=0):
         self.keys = pars.keys()
         self.keys.sort()
         if self.keys not in self._SBkeys:
@@ -33,7 +33,6 @@ class SBModel:
         self.setPars()
         self.name = name
         self.convolve = convolve
-
 
     def __setattr__(self,key,value):
         if key=='pa':
@@ -64,7 +63,7 @@ class Sersic(SBModel, _Sersic):
                 ['logamp','n','q','re','theta','x','y']]
 
     def __init__(self,name,pars,convolve=0):
-        SBModel.__init__(name,pars,convolve)
+        SBModel.__init__(self, name, pars, convolve)
 
     def getMag(self,amp,zp):
         from scipy.special import gamma

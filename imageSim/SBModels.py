@@ -1,6 +1,9 @@
+from __future__ import absolute_import, print_function, division
 import SBProfiles
 from pointSource import PixelizedModel as PM, GaussianModel as GM
 from math import pi
+
+__metaclass__ = type
 
 def cnts2mag(cnts,zp):
     from math import log10
@@ -12,7 +15,7 @@ _SersicPars = [['amp','n','pa','q','re','x','y'],
                 ['logamp','n','q','re','theta','x','y']]
 
 class SBModel:
-    def __init__(self,name,pars,convolve=0):
+    def __init__(self, name, pars, convolve=0):
         if 'amp' not in pars.keys():
             pars['amp'] = 1.
         self.keys = pars.keys()
@@ -56,15 +59,16 @@ class SBModel:
             self.__setattr__(key,self.vmap[key].value)
 
 
-class Sersic(SBModel,SBProfiles.Sersic):
+class Sersic(SBModel, SBProfiles.Sersic):
     _baseProfile = SBProfiles.Sersic
     _SBkeys = [['amp','n','pa','q','re','x','y'],
                 ['logamp','n','pa','q','re','x','y'],
                 ['amp','n','q','re','theta','x','y'],
                 ['logamp','n','q','re','theta','x','y']]
 
-    def __init__(self,name,pars,convolve=0):
-        SBModel.__init__(self,name,pars,convolve)
+    def __init__(self, name, pars, convolve=0):
+        #super(Sersic, self).__init__(name, pars, convolve)
+        SBModel.__init__(self, name, pars, convolve)
 
     def getMag(self,amp,zp):
         from scipy.special import gamma

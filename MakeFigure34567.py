@@ -1,3 +1,4 @@
+from __future__ import absolute_import, division, print_function
 import cPickle
 import sys,os
 import matplotlib
@@ -61,10 +62,11 @@ for survey in surveystoread:
        mag[ss]=namelist[8]
    except IOError:
        continue
+print(weights)
 for survey in surveystoread:
-    print survey
-    for key in ["resolved","rfpf"]:
-        print key, numpy.array(weights[survey][key]).sum()
+    print(survey)
+    for key in ["resolved", "rfpf"]:
+        print(key, numpy.array(weights[survey][key]).sum())
 
 
 save=True#False
@@ -112,7 +114,7 @@ wb=numpy.array(weights["LSSTb"]["resolved"])
 maskc=numpy.where((numpy.array(bl["LSSTc"]["resolved"]))>0)
 maska=numpy.where((numpy.array(bl["LSSTa"]["resolved"]))>1)
 maskb=numpy.where((numpy.array(bl["LSSTb"]["resolved"]))<1)
-print numpy.sum(wc[maskc])- numpy.sum(wa[maska])- numpy.sum(wb[maskb])
+print(numpy.sum(wc[maskc])- numpy.sum(wa[maska])- numpy.sum(wb[maskb]))
 plt.hist(bl["LSSTc"]["resolved"],bins=numpy.linspace(0,3,31),weights=weights["LSSTc"]["resolved"],fc="grey",alpha=1,label="LSST-optimal")
 plt.hist(bl["LSSTa"]["resolved"],bins=numpy.linspace(0,3,31),weights=weights["LSSTa"]["resolved"],fc="red",alpha=0.6,label="LSST-all")
 plt.hist(bl["LSSTb"]["resolved"],bins=numpy.linspace(0,3,31),weights=weights["LSSTb"]["resolved"],fc="blue",alpha=0.6,label="LSST-best")

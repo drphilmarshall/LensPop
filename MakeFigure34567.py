@@ -1,5 +1,4 @@
 import cPickle
-import pyfits
 import sys,os
 import matplotlib
 matplotlib.use('Agg')

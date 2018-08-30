@@ -25,6 +25,7 @@ References
 """
 
 from __future__ import division, absolute_import, print_function
+import numpy as np
 
 def get_sdss_filters():
     """Retrieves the SDSS filter throughputs from files in stellarpop/filters
@@ -110,7 +111,7 @@ def calculate_rf_lens_magnitudes(lens_redshift, velocity_dispersion, filters_dic
     cosmology = FlatLambdaCDM(H0=70.0, Om0=0.3)
 
     lens_sed = tools.getSED('BC_Z=1.0_age=9.000gyr')
-    velocity_dispersion = velocity_dispersion
+    velocity_dispersion = np.atleast_1d(velocity_dispersion)
 
     # Absolute --> apparent magnitude conversion in the R-band
     lens_abmag_r = tools.ABFilterMagnitude(filters_dict['r'], lens_sed, lens_redshift)

@@ -99,9 +99,12 @@ def calculate_rf_lens_magnitudes(lens_redshift, velocity_dispersion, filters_dic
         Each value is the reference-frame apparent magnitude of the quasar
         in the 'key' filter, of type float
     """
-    from lenspop import population_functions
+    from stellarpop import tools
+    from lenspop import population_functions, distances
     from astropy.cosmology import FlatLambdaCDM
 
+    # Instantiate Distance
+    distance = distances.Distance() #TODO: necessary?
     # Instantiate LensPopulation
     lenspop = population_functions.LensPopulation_()
     # Instantiate FlatLambdaCDM cosmology with reasonable parameters

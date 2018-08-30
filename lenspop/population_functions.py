@@ -5,7 +5,7 @@ from six.moves import cPickle as pickle
 import numpy,math
 import indexTricks as iT
 
-import distances
+from lenspop import distances
 
 #====================================================================================
 

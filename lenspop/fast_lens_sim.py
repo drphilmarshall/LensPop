@@ -119,7 +119,7 @@ class FastLensSim(SO,S2N):
             self.deltap=0.
 
         self.nl=n
-        self.gal = imageSim.Sersic('gal', {'x':self.xl+self.deltaxl,
+        self.gal = imageSim.Sersic(name='gal', pars={'x':self.xl+self.deltaxl,
                                            'y':self.yl+self.deltayl,
                                            'q':self.ql,
                                            'pa':90+self.deltap,

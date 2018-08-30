@@ -1,9 +1,12 @@
-from __init__ import *
+from __future__ import absolute_import, division, print_function
 import cPickle
 #import pyfits
 import sys
 import pylab as plt
 import time
+from lenspop.make_lens_pop import LensSample
+from lenspop.fast_lens_sim import FastLensSim
+
 sigfloor=200
 
 L=LensSample(reset=False,sigfloor=sigfloor,cosmo=[0.3,0.7,0.7])
@@ -17,7 +20,6 @@ b=3#Magnification threshold
 c=1000
 d=1000
 
-
 #experiment="DES"
 if len(sys.argv)>1:
     experiment=sys.argv[1]
@@ -30,7 +32,6 @@ if len(sys.argv)>3:
 
 firstod=1
 nsources=1
-
 
 surveys=[]
 
@@ -50,14 +51,12 @@ if experiment=="LSST":
     surveys+=["LSSTa"] #full coadd (Gaussianised)
     #print "only doing LSSTc"
 
-
 S={}
 n={}
 for survey in surveys:
     S[survey]=FastLensSim(survey,fractionofseeing=1)
     S[survey].bfac=float(2)
     S[survey].rfac=float(2)
-
 
 t0=time.clock()
 
@@ -78,9 +77,9 @@ for sourcepop in ["lsst"]:
 
   for i in range(nall):
     if i%10000==0:
-        print "about to load"
+        print("about to load")
         L.LoadLensPop(i,sourcepop)
-        print i,nall
+        print(i,nall)
 
     if i!=0:
         if i%10000==0 or i==100 or i==300 or i==1000 or i==3000:
@@ -90,7 +89,7 @@ for sourcepop in ["lsst"]:
             tl/=60#mins
             hl=numpy.floor(tl/(60))
             ml=tl-(hl*60)
-            print i,"%ih%im left"%(hl,ml)
+            print(i,"%ih%im left"%(hl,ml))
 
     lenspars=L.lens[i]
     if lenspars["lens?"]==False:
@@ -101,9 +100,6 @@ for sourcepop in ["lsst"]:
                            lenspars["rl"]["i_SDSS"]+lenspars["rl"]["z_SDSS"])/3
     for mi in [lenspars["ml"],lenspars["ms"][1]]:
         mi["VIS"]=(mi["r_SDSS"]+mi["i_SDSS"]+mi["z_SDSS"])/3
-
-    
-
 
     #if lenspars["zl"]>1 or lenspars["zl"]<0.2 or lenspars["ml"]["i_SDSS"]<17 or lenspars["ml"]["i_SDSS"]>22:continue# this is a CFHT compare quick n dirty test
 
@@ -122,7 +118,6 @@ for sourcepop in ["lsst"]:
 
     lastsurvey="non"
     for survey in surveys:
-
         S[survey].setLensPars(lenspars["ml"],lenspars["rl"],lenspars["ql"],reset=True)
         for j in range(nsources):
             S[survey].setSourcePars(lenspars["b"][j+1],lenspars["ms"][j+1],\
@@ -241,7 +236,7 @@ for sourcepop in ["lsst"]:
   f=open("LensStats/%s_%s_Lens_stats_%i.pkl"%(experiment,sourcepop,chunk),"wb")
   cPickle.dump([frac,SSPL],f,2)
   f.close()
-  print Si
+  print(Si)
 
 bl=[]
 for j in SSPL.keys():

@@ -1,7 +1,8 @@
-from __init__ import *
 import cPickle
 import pyfits
 import sys,os
+import matplotlib
+matplotlib.use('Agg')
 import pylab as plt
 import glob
 

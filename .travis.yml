@@ -1,0 +1,40 @@
+language: python
+
+python:
+    - 2.7
+
+virtualenv:
+    system_site_packages: true
+
+before_install:
+    - "sudo apt-get -qq update"
+    # Non-pip dependency
+    - "sudo apt-get install -y libffi-dev libssl-dev python-dev"
+    - "pip install --user pyOpenSSL ndg-httpsclient pyasn1"
+    - "pip install --user urllib3[secure] --upgrade"
+    - "pip install --user requests[security] --upgrade"
+
+cache:
+    ccache: true
+    pip: true
+
+install:
+    # Install LensPop dependencies
+    - "pip install --user -r requirements.txt"
+
+script:
+    - "python setup.py install"
+    - "pip freeze"
+    # Make folders to store output files
+    - "mkdir idealisedlenses"
+    - "mkdir LensStats"
+    # Run some example scripts
+    - "python MakeLensPop.py"
+    - "python ModelAll.py CFHT 0.1"
+    - "python MakeResults.py CFHT"
+    - "python MakeFigures34567.py"
+    # Run test script for functions called by OM10
+    - "python paint_lensed_systems.py"
+
+after_success:
+- codecov

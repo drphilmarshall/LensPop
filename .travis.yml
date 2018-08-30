@@ -9,6 +9,7 @@ virtualenv:
 before_install:
     - "sudo apt-get -qq update"
     # Non-pip dependency
+    - "sudo apt-get install gfortran"
     - "sudo apt-get install -y libffi-dev libssl-dev python-dev"
     - "pip install --user pyOpenSSL ndg-httpsclient pyasn1"
     - "pip install --user urllib3[secure] --upgrade"

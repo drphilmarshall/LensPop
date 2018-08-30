@@ -21,6 +21,8 @@ cache:
 install:
     # Install LensPop dependencies
     - "pip install --user -r requirements.txt"
+    # Install dependency for the paint_lensed_systems.py demo script
+    - "pip install --user astropy"
 
 script:
     - "python setup.py install"
@@ -28,6 +30,10 @@ script:
     # Make folders to store output files
     - "mkdir idealisedlenses"
     - "mkdir LensStats"
+    # Compile deflection angles
+    - "cd pylens"
+    - "f2py -c -m powerlaw powerlaw.f"
+    - "cd .."
     # Run some example scripts
     - "python MakeLensPop.py"
     - "python ModelAll.py CFHT 0.1"
@@ -40,7 +46,6 @@ script:
     - "python MakeResults.py LSST"
     - "python MakeFigure34567.py"
     # Run demo script on painting lensed quasar systems
-    - "pip install --user astropy"    
     - "python paint_lensed_system.py"
 
 after_success:

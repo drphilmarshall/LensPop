@@ -22,7 +22,7 @@ class SBModel:
         self.keys.sort()
         if self.keys not in self._SBkeys:
             import sys
-            print 'Not all (or too many) parameters were defined!'
+            print('Not all (or too many) parameters were defined!')
             sys.exit()
         self._baseProfile.__init__(self)
         self.vmap = {}
@@ -118,8 +118,7 @@ class PointSource(GM,PM):
         keys = var.keys()+const.keys()
         keys.sort()
         if keys!=['amp','x','y']:
-            print "Not all parameters defined!",keys
-            df
+            print("Not all parameters defined!")
         self.keys = keys
         self.values = {}
         self.vmap = {}

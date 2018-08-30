@@ -4,7 +4,7 @@ import cPickle
 import sys,os
 import matplotlib
 matplotlib.use('Agg')
-import matplotlib.pyplot as plt
+import pylab as plt
 import glob
 import numpy
 

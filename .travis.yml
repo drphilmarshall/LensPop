@@ -34,7 +34,7 @@ script:
     - "python MakeResults.py CFHT"
     - "python MakeFigures34567.py"
     # Run test script for functions called by OM10
-    - "python paint_lensed_systems.py"
+    - "python paint_lensed_system.py"
 
 after_success:
 - codecov

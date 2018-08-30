@@ -92,3 +92,7 @@ ENV/
 *.pkl
 idealisedlenses/*
 LensStats/*
+
+# Temp
+*~
+*#

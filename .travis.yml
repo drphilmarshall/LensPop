@@ -33,7 +33,8 @@ script:
     - "python ModelAll.py CFHT 0.1"
     - "python MakeResults.py CFHT"
     - "python MakeFigure34567.py"
-    # Run test script for functions called by OM10
+    # Run demo script on painting lensed quasar systems
+    - "pip install --user astropy"    
     - "python paint_lensed_system.py"
 
 after_success:

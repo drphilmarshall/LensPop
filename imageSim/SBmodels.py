@@ -15,6 +15,8 @@ _SersicPars = [['amp','n','pa','q','re','x','y'],
 
 class SBModel:
     def __init__(self, name, pars, convolve=0):
+        if 'amp' not in pars.keys():
+            pars['amp'] = 1.0
         self.keys = pars.keys()
         self.keys.sort()
         if self.keys not in self._SBkeys:

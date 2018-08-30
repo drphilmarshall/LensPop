@@ -31,7 +31,13 @@ script:
     # Run some example scripts
     - "python MakeLensPop.py"
     - "python ModelAll.py CFHT 0.1"
+    - "python ModelAll.py Euclid 0.1"
+    - "python ModelAll.py DES 0.1"
+    - "python ModelAll.py LSST 0.1"
     - "python MakeResults.py CFHT"
+    - "python MakeResults.py Euclid"
+    - "python MakeResults.py DES"
+    - "python MakeResults.py LSST"
     - "python MakeFigure34567.py"
     # Run demo script on painting lensed quasar systems
     - "pip install --user astropy"    

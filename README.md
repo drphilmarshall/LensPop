@@ -106,7 +106,7 @@ Now Make Results:
 ```
 Finally, make the figures showing what you've found:
 ```
-    python MakeFigures34567.py
+    python MakeFigure34567.py
 ```
 
 ----

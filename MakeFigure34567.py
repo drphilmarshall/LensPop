@@ -4,6 +4,7 @@ import matplotlib
 matplotlib.use('Agg')
 import pylab as plt
 import glob
+import numpy
 
 params = {
    'axes.labelsize': 16,

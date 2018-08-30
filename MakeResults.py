@@ -10,7 +10,7 @@ import numpy
 
 params = {
    'axes.labelsize': 14,
-   'text.fontsize': 14,
+   'font.size': 14,
    'legend.fontsize': 10,
    'xtick.labelsize': 10,
    'ytick.labelsize': 10,

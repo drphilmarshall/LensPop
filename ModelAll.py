@@ -2,6 +2,8 @@ from __future__ import absolute_import, division, print_function
 import cPickle
 #import pyfits
 import sys
+import matplotlib
+matplotlib.use('Agg')
 import pylab as plt
 import time
 from lenspop.make_lens_pop import LensSample

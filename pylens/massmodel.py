@@ -24,7 +24,7 @@ class PowerLaw(_PowerLaw):
             import sys
             print("Not all parameters defined!")
             sys.exit()
-        models._PowerLaw.__init__(self)
+        _PowerLaw.__init__(self)
         self.keys = keys
         self.values = {}
         self.vmap = {}
@@ -77,7 +77,7 @@ class ExtShear(_ExtShear):
             import sys
             print("Not all parameters defined!",keys)
             sys.exit()
-        models._ExtShear.__init__(self)
+        _ExtShear.__init__(self)
         self.keys = keys
         self.values = {}
         self.vmap = {}
@@ -118,7 +118,7 @@ class MassSheet(_MassSheet):
             import sys
             print("Not all parameters defined!",keys)
             sys.exit()
-        models._MassSheet.__init__(self)
+        _MassSheet.__init__(self)
         self.keys = keys
         self.values = {}
         self.vmap = {}
@@ -157,7 +157,7 @@ class NFW(_NFW):
             import sys
             print("Not all parameters defined!")
             sys.exit()
-        models._PowerLaw.__init__(self)
+        _PowerLaw.__init__(self)
         self.keys = keys
         self.values = {}
         self.vmap = {}

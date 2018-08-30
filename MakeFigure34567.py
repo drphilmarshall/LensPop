@@ -7,7 +7,7 @@ import glob
 
 params = {
    'axes.labelsize': 16,
-   'text.fontsize': 16,
+   'font.size': 16,
    'legend.fontsize': 14,
    'xtick.labelsize': 14,
    'ytick.labelsize': 14,

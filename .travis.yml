@@ -32,7 +32,7 @@ script:
     - "python MakeLensPop.py"
     - "python ModelAll.py CFHT 0.1"
     - "python MakeResults.py CFHT"
-    - "python MakeFigures34567.py"
+    - "python MakeFigure34567.py"
     # Run test script for functions called by OM10
     - "python paint_lensed_system.py"
 

@@ -2,7 +2,9 @@ from __future__ import absolute_import, division, print_function
 
 import cPickle
 import sys,os
-import pylab as plt
+import matplotlib
+matplotlib.use('Agg')
+import matplotlib.pyplot as plt
 import glob
 import numpy
 

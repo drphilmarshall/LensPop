@@ -70,7 +70,7 @@ def calculate_rf_quasar_magnitudes(quasar_redshift, apparent_magnitude_i, filter
     quasar_sed = tools.getSED('agn')
     q_offset = apparent_magnitude_i - tools.ABFilterMagnitude(filters_dict['i'], quasar_sed, quasar_redshift)
     rf_quasar_appmag = {}
-    if redshift < 3.9:
+    if quasar_redshift < 3.9:
         rf_quasar_appmag['u'] = tools.ABFilterMagnitude(filters_dict['u'], quasar_sed, quasar_redshift) + q_offset
     else:
         rf_quasar_appmag['u'] = 99.0

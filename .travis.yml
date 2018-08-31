@@ -45,6 +45,7 @@ script:
     - "python ModelAll.py DES 0.0001"
     - "python ModelAll.py LSST 0.0001"
     - "python MakeResults.py CFHT"
+    - "python MakeResults.py CFHTa"
     - "python MakeResults.py Euclid"
     - "python MakeResults.py DES"
     - "python MakeResults.py LSST"

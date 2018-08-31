@@ -1,7 +1,7 @@
 from __future__ import absolute_import, division, print_function
 import cPickle
-#import pyfits
 import sys
+import numpy
 import matplotlib
 matplotlib.use('Agg')
 import pylab as plt
@@ -11,7 +11,7 @@ from lenspop.fast_lens_sim import FastLensSim
 
 sigfloor=200
 
-L=LensSample(reset=False,sigfloor=sigfloor,cosmo=[0.3,0.7,0.7])
+L = LensSample(reset=False, sigfloor=sigfloor, cosmo=[0.3,0.7,0.7])
 
 experiment="Euclid"
 frac=0.1
@@ -26,6 +26,7 @@ d=1000
 if len(sys.argv)>1:
     experiment=sys.argv[1]
     frac=float(sys.argv[2])
+    print("Fraction of the sky: ", frac)
 if len(sys.argv)>3:
     a=int(sys.argv[3])
     b=int(sys.argv[4])
@@ -75,13 +76,13 @@ for sourcepop in ["lsst"]:
       nall=1100000
   elif sourcepop=="lsst":
       nall=12530000
-  nall=int(nall*frac)
+  nall = int(nall*frac)
 
   for i in range(nall):
     if i%10000==0:
         print("about to load")
-        L.LoadLensPop(i,sourcepop)
-        print(i,nall)
+        L.LoadLensPop(i, sourcepop)
+        print(i, nall)
 
     if i!=0:
         if i%10000==0 or i==100 or i==300 or i==1000 or i==3000:
@@ -92,7 +93,7 @@ for sourcepop in ["lsst"]:
             hl=numpy.floor(tl/(60))
             ml=tl-(hl*60)
             print(i,"%ih%im left"%(hl,ml))
-
+            
     lenspars=L.lens[i]
     if lenspars["lens?"]==False:
         del L.lens[i]

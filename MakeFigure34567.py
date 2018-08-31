@@ -29,7 +29,6 @@ surveystoread+=["LSSTc"]
 surveystoread+=["LSSTb"]
 surveystoread+=["LSSTa"]
 
-
 weights={}
 bl  ={}
 zs  ={}
@@ -40,28 +39,29 @@ rs  ={}
 ms  ={}
 mag ={}
 for survey in surveystoread:
- for sourcepop in ["lsst"]:
-   ss=str(survey)
-   filename="../%s_%s_lists.pkl"%(survey,sourcepop)
-   filename="%s_%s_lists.pkl"%(survey,sourcepop)
-   try:
-       f=open(filename,"rb")
-       namelist=cPickle.load(f)
-       f.close()
-       weights[ss]=namelist[0]
-       if survey=="CFHTa":
-           for key in weights[ss].keys():
-               weights[ss][key]=list(numpy.array(weights[ss][key])/100.)
-       bl[ss]=namelist[1]
-       zs[ss]=namelist[2]
-       rs[ss]=namelist[3]
-       ms[ss]=namelist[4]
-       zl[ss]=namelist[5]
-       sigl[ss]=namelist[6]
-       ql[ss]=namelist[7]
-       mag[ss]=namelist[8]
-   except IOError:
-       continue
+    for sourcepop in ["lsst"]:
+        ss=str(survey)
+        #filename = "../%s_%s_lists.pkl"%(survey, sourcepop)
+        filename = "%s_%s_lists.pkl"%(survey, sourcepop)
+        try:
+            f = open(filename, "rb")
+            namelist=cPickle.load(f)
+            f.close()
+            weights[ss] = namelist[0]
+            if survey=="CFHTa":
+                for key in weights[ss].keys():
+                  weights[ss][key] = list(numpy.array(weights[ss][key])/100.)
+            bl[ss]=namelist[1]
+            zs[ss]=namelist[2]
+            rs[ss]=namelist[3]
+            ms[ss]=namelist[4]
+            zl[ss]=namelist[5]
+            sigl[ss]=namelist[6]
+            ql[ss]=namelist[7]
+            mag[ss]=namelist[8]
+        except IOError:
+            continue
+
 print(weights)
 for survey in surveystoread:
     print(survey)
@@ -81,8 +81,8 @@ plt.xlabel(r"$\Theta_\mathrm{E}$ (arcsec)")
 plt.ylabel(r"Lenses per $\Theta_\mathrm{E}$ bin")
 plt.legend()
 plt.tight_layout()
-if save:plt.savefig("/home/ttemp/papers/LensPop/thetaE.pdf")
-if save:plt.savefig("/home/ttemp/papers/LensPop/thetaE.png")
+if save:plt.savefig("LensStats/thetaE.pdf")
+if save:plt.savefig("LensStats/thetaE.png")
 if show:plt.show()
 plt.cla()
 
@@ -104,7 +104,7 @@ plt.xlabel(r"Unlensed source $g$-band magnitude")
 plt.ylabel(r"Lenses per bin")
 plt.legend(loc=2)
 plt.tight_layout()
-if save:plt.savefig("/home/ttemp/papers/LensPop/LSSTg.pdf")
+if save:plt.savefig("LensStats/LSSTg.pdf")
 if show:plt.show()
 plt.cla()
 
@@ -127,7 +127,7 @@ plt.xlabel(r"$\Theta_\mathrm{E}$ (arcsec)")
 plt.ylabel(r"Lenses per bin")
 plt.legend()
 plt.tight_layout()
-if save:plt.savefig("/home/ttemp/papers/LensPop/LSSTb.pdf")
+if save:plt.savefig("LensStats/LSSTb.pdf")
 if show:plt.show()
 plt.cla()
 
@@ -139,7 +139,7 @@ plt.cla()
 #plt.xlabel(r"$\mu$")
 #plt.ylabel(r"Lenses per mag bin")
 #plt.tight_layout()
-#plt.savefig("/home/ttemp/papers/LensPop/mags.pdf")
+#plt.savefig("LensStats/mags.pdf")
 #plt.show()
 #plt.cla()
 
@@ -155,7 +155,7 @@ plt.xlabel(r"$\Theta_\mathrm{E}$ (arcsec)")
 plt.ylabel(r"Lenses per bin")
 plt.legend()
 plt.tight_layout()
-if save:plt.savefig("/home/ttemp/papers/LensPop/DESb.pdf")
+if save:plt.savefig("LensStats/DESb.pdf")
 if show:plt.show()
 plt.cla()
 
@@ -165,7 +165,7 @@ plt.hist(zs["DESc"]["resolved"],bins=numpy.linspace(0,5.5,56),weights=weights["D
 plt.xlabel(r"redshift")
 plt.ylabel(r"Lenses perbin")
 plt.tight_layout()
-if save:plt.savefig("/home/ttemp/papers/LensPop/DESz.pdf")
+if save:plt.savefig("LensStats/DESz.pdf")
 if show:plt.show()
 plt.cla()
 
@@ -175,7 +175,7 @@ plt.hist(zs["LSSTc"]["resolved"],bins=numpy.linspace(0,5.5,56),weights=weights["
 plt.xlabel(r"redshift")
 plt.ylabel(r"Lenses perbin")
 plt.tight_layout()
-if save:plt.savefig("/home/ttemp/papers/LensPop/LSSTz.pdf")
+if save:plt.savefig("LensStats/LSSTz.pdf")
 if show:plt.show()
 plt.cla()
 
@@ -185,7 +185,7 @@ plt.hist(zs["LSSTc"]["resolved"],bins=numpy.linspace(0,5.5,56),normed=True,fc="r
 plt.xlabel(r"redshift")
 plt.ylabel(r"Lenses perbin")
 plt.tight_layout()
-if save:plt.savefig("/home/ttemp/papers/LensPop/LSSTz.pdf")
+if save:plt.savefig("LensStats/LSSTz.pdf")
 #plt.show()
 plt.cla()
 
@@ -195,7 +195,7 @@ plt.hist(zs["LSSTc"]["resolved"],bins=numpy.linspace(0,5.5,56),normed=True,fc="r
 plt.xlabel(r"redshift")
 plt.ylabel(r"Lenses per bin")
 plt.tight_layout()
-if save:plt.savefig("/home/ttemp/papers/LensPop/LSSTz.pdf")
+if save:plt.savefig("LensStats/LSSTz.pdf")
 #plt.show()
 plt.cla()
 
@@ -227,7 +227,7 @@ plt.ylabel("P($\sigma_{\mathrm{V}}$)")
 
 #plt.ylabel("$\sigma_{\mathrm{V}}$ bin")
 plt.tight_layout()
-if save:plt.savefig("/home/ttemp/papers/LensPop/sigmadist.pdf")
+if save:plt.savefig("LensStats/sigmadist.pdf")
 if show:plt.show()
 plt.cla()
 
@@ -303,6 +303,6 @@ plt.xlabel("redshift")
 #plt.ylabel("$\sigma_{\mathrm{V}}$ bin")
 plt.legend()
 plt.tight_layout()
-if save:plt.savefig("/home/ttemp/papers/LensPop/zdist.pdf")
+if save:plt.savefig("LensStats/zdist.pdf")
 if show:plt.show()
 plt.cla()

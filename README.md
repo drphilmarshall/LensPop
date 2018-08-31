@@ -39,11 +39,11 @@ The files are:
 
 ### Users
 
-The following _should_ work:
+Install LensPop via pip with:
 ```
-   pip install git+git://github.com/drphilmarshall/LensPop.git#egg=lenspop --upgrade
+   pip install git+git://github.com/jiwoncpark/LensPop.git@master#egg=lenspop
 ```
-Check with:
+Check that it's been installed properly by running:
 ```
 python
 import lenspop
@@ -53,7 +53,7 @@ import lenspop
 
 First clone the repo with
 ```
-   git clone "https://github.com/tcollett/LensPop.git"
+   git clone "https://github.com/jiwoncpark/LensPop.git"
 ```
 and then set up your path with
 ```
@@ -66,13 +66,42 @@ You can then push to a remote fork and submit pull requests as needed.
 
 You'll need to make a few folders to put things in:
 ```
-   mkdir idealisedlenses
-   mkdir LensStats
+   mkdir idealisedlenses # for storing output .pkl data files
+   mkdir LensStats # for storing output figures
 ```
 The code is mostly python, so should work out of the box (if you have standard astrophysical libraries installed already - if you have any problems install anaconda python) except the deflection angles code which must be compiled using:
 ```
    cd pylens
    f2py -c -m powerlaw powerlaw.f
+```
+
+### Tests and demos
+
+To see that everything runs, run the following example scripts in order. It shouldn't take more than 3 minutes in total.
+```
+    # Generate the lens population
+    python MakeLensPop.py
+    # Observe
+    python ModelAll.py CFHT 0.0001
+    python ModelAll.py CFHTa 0.0001
+    python ModelAll.py Euclid 0.0001
+    python ModelAll.py DES 0.0001
+    python ModelAll.py LSST 0.0001
+    # Make results
+    python MakeResults.py CFHT
+    python MakeResults.py CFHTa
+    python MakeResults.py Euclid
+    python MakeResults.py DES
+    python MakeResults.py LSST
+    # Make figures
+    python MakeFigure34567.py
+
+```
+
+There is also a demo script on using LensPop to get multi-filter magnitudes of a lensed quasar system, taken from [OM10](https://github.com/drphilmarshall/om10). Simply run:
+
+```
+    python paint_lensed_system.py
 ```
 
 ----

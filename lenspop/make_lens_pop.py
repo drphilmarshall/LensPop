@@ -79,47 +79,46 @@ class LensSample():
         self.E = lenspop.EinsteinRadiusTools(D=D)
 
     def Lenses_on_sky(self):
-        self.ndeflectors=self.L.Ndeflectors(self.L.zlmax)
+        self.ndeflectors = self.L.Ndeflectors(self.L.zlmax)
         return self.ndeflectors
 
-    def Generate_Lens_Pop(self, N, firstod=1, nsources=1,
-                          prunenonlenses=True, save=True):
+    def Generate_Lens_Pop(self, N, firstod=1, nsources=1, prunenonlenses=True, save=True):
         import time
         t0=time.clock()
-        if prunenonlenses==False: assert N<60000
+        if prunenonlenses == False:
+            assert N < 60000
 
-        self.lens={}
-        self.reallens={}
-        M=N*1
-        l=-1
-        l2=-1
-        while M>0:
+        self.lens = {}
+        self.reallens = {}
+        M = N*1 # Variable which stores the number of objects left
+        l = -1
+        l2 = -1
+        while M > 0:
             timeleft="who knows"
-            if M!=N:
-                tnow=time.clock()
-                ti=(tnow-t0)/float(N-M)
-                timeleft=ti*M/60.
-
-
+            if M != N:
+                tnow = time.clock()
+                ti = (tnow-t0)/float(N - M)
+                timeleft = ti*M/60.0
             print(M,timeleft," minutes left")
-            if M>100000:
-                n=100000
+
+            if M > 100000:
+                n = 100000 # Batch size, to be processed at a time
             else:
-                n=M*1
-            M-=n
-            zl,sigl,ml,rl,ql=self.L.drawLensPopulation(n)
-            zs,ms,xs,ys,qs,ps,rs,mstar,mhalo=self.S.drawSourcePopulation(n*nsources,sourceplaneoverdensity=firstod,returnmasses=True)
+                n = M*1
+            M -= n
+            zl, sigl, ml, rl, ql = self.L.drawLensPopulation(n)
+            zs, ms, xs, ys, qs, ps, rs, mstar, mhalo = self.S.drawSourcePopulation(n*nsources, sourceplaneoverdensity=firstod, returnmasses=True)
 
-            zl1=zl*1
-            sigl1=sigl*1
-            for i in range(nsources-1):
-                zl=numpy.concatenate((zl,zl1))
-                sigl=numpy.concatenate((sigl,sigl1))
+            zl1 = zl*1
+            sigl1 = sigl*1
+            for i in range(nsources - 1):
+                zl = numpy.concatenate((zl, zl1))
+                sigl = numpy.concatenate((sigl, sigl1))
 
-            b=self.E.sie_rein(sigl,zl,zs)
+            b = self.E.sie_rein(sigl,zl,zs)
             for i in range(n):
                 l +=1
-                self.lens[l]={}
+                self.lens[l] = {}
                 if b[i]**2>(xs[i]**2+ys[i]**2):
                     self.lens[l]["lens?"]=True
                 else:
@@ -168,31 +167,29 @@ class LensSample():
 
                 if self.lens[l]["lens?"]:
                     if prunenonlenses:
-                        l2+=1
-
-                        self.reallens[l2]=self.lens[l].copy()
-
+                        l2 += 1
+                        self.reallens[l2] = self.lens[l].copy()
                         del self.lens
-                        self.lens={}
+                        self.lens = {}
 
-                        if l2%1000==0:
+                        if l2%1000 == 0:
                             print(l2)
 
-                        if (l2+1)%10000==0:
+                        if (l2+1)%10000 == 0:
                           if save:
-                            fn="idealisedlenses/lenspopulation_%s_%i.pkl"%(self.sourcepopulation,l2-10000+1)
-                            print(fn)
+                            fn = "idealisedlenses/lenspopulation_%s_%d.pkl"%(self.sourcepopulation, l2 - 10000 + 1)
+                            print(fn) # First fn has index 0
                             f=open(fn,'wb')
-                            pickle.dump(self.reallens,f,2)
+                            pickle.dump(self.reallens, f, 2)
                             f.close()
                             del self.reallens
-                            self.reallens={}
+                            self.reallens = {}
 
                 elif prunenonlenses:
                     del self.lens
                     self.lens={}
         if save:
-            fn="idealisedlenses/lenspopulation_%s_residual_%i.pkl"%(self.sourcepopulation,l2)
+            fn="idealisedlenses/lenspopulation_%s_residual_%d.pkl"%(self.sourcepopulation, l2)
             print(l2,fn)
             f=open(fn,'wb')
             pickle.dump(self.reallens,f,2)
@@ -205,10 +202,10 @@ class LensSample():
             f.close()
             print(len(self.lens.keys()))
 
-        self.lens=self.reallens
+        self.lens = self.reallens
 
-    def LoadLensPop(self,j=0,sourcepopulation="lsst"):
-        f=open("idealisedlenses/lenspopulation_%s_%i.pkl"%(sourcepopulation,j),'rb')
+    def LoadLensPop(self, j=0, sourcepopulation="lsst"):
+        f=open("idealisedlenses/lenspopulation_%s_%d.pkl"%(sourcepopulation, j), 'rb')
         self.lens=pickle.load(f)
         f.close()
 

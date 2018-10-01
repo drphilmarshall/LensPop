@@ -34,15 +34,15 @@ def newConvolve(image,psf,doPSF=True):
 
 
 
-def convolve(image,psf,doPSF=True,edgeCheck=False):
+def convolve(image, psf, doPSF=True, edgeCheck=False):
     """
     A reasonably fast convolution routine that supports re-entry with a
     pre-FFT'd PSF. Returns the convolved image and the FFT'd PSF.
     """
     datadim1 = image.shape[0]
     datadim2 = image.shape[1]
-    if datadim1!=datadim2:
-        ddim = max(datadim1,datadim2)
+    if datadim1 != datadim2:
+        ddim = max(datadim1, datadim2)
         s = numpy.binary_repr(ddim-1)
         s = s[:-1]+'0' # Guarantee that padding is used
     else:
@@ -53,15 +53,15 @@ def convolve(image,psf,doPSF=True,edgeCheck=False):
         if edgeCheck==True and size-ddim<8:
             size*=2
         boxd = numpy.zeros((size,size))
-        r = size-datadim1
-        r1 = r2 = r/2
+        r = size - datadim1
+        r1 = r2 = int(r*0.5)
         if r%2==1:
-            r1 = r/2+1
-        c = size-datadim2
-        c1 = c2 = c/2
+            r1 += 1
+        c = size - datadim2
+        c1 = c2 = int(c*0.5)
         if c%2==1:
-            c1 = c/2+1
-        boxdslice = (slice(r1,datadim1+r1),slice(c1,datadim2+c1))
+            c1 += 1
+        boxdslice = (slice(r1, datadim1+r1), slice(c1, datadim2+c1))
         boxd[boxdslice] = image
     else:
         boxd = image
@@ -73,10 +73,10 @@ def convolve(image,psf,doPSF=True,edgeCheck=False):
             boxp = psf.copy()
         else:
             r = boxp.shape[0]-psf.shape[0]
-            r1 = r/2+1
+            r1 = int(r*0.5)+1
             c = boxp.shape[1]-psf.shape[1]
-            c1 = c/2+1
-            boxpslice = (slice(r1,psf.shape[0]+r1),slice(c1,psf.shape[1]+c1))
+            c1 = int(c*0.5)+1
+            boxpslice = (slice(r1, psf.shape[0]+r1), slice(c1, psf.shape[1]+c1))
             boxp[boxpslice] = psf.copy()
         # Store the transform of the image after the first iteration
         a = (numpy.fft.rfft2(boxp))

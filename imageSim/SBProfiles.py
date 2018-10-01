@@ -1,4 +1,4 @@
-import numpy,time
+import numpy, time
 from scipy import interpolate
 """
 MINIMAL ERROR CHECKING!

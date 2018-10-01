@@ -1,0 +1,3 @@
+include stellarpop/filters/*
+include stellarpop/templates/*.sed
+global-include *.rst *.md

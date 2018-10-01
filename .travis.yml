@@ -1,0 +1,57 @@
+language: python
+
+python:
+    - 2.7
+
+virtualenv:
+    system_site_packages: true
+
+before_install:
+    - "sudo apt-get -qq update"
+    # Non-pip dependency
+    - "sudo apt-get install gfortran"
+    - "sudo apt-get install -y libffi-dev libssl-dev python-dev"
+    - "pip install --user pyOpenSSL ndg-httpsclient pyasn1"
+    - "pip install --user urllib3[secure] --upgrade"
+    - "pip install --user requests[security] --upgrade"
+
+cache:
+    ccache: true
+    pip: true
+
+install:
+    # Install LensPop dependencies
+    - "pip install --user -r requirements.txt"
+    # Install dependency for the paint_lensed_systems.py demo script
+    - "pip install --user astropy"
+
+script:
+    - "python setup.py install"
+    # Check if we got all the dependencies
+    - "pip freeze"
+    # Make folder to store output .pkl files from `ModelAll.py`
+    - "mkdir idealisedlenses"
+    # Make folder to store output figures from `MakeFigure34567.py`
+    - "mkdir LensStats"
+    # Compile deflection angles
+    - "cd pylens"
+    - "f2py -c -m powerlaw powerlaw.f"
+    - "cd .."
+    # Run some example scripts
+    - "python MakeLensPop.py"
+    - "python ModelAll.py CFHT 0.0001"
+    - "python ModelAll.py CFHTa 0.0001"
+    - "python ModelAll.py Euclid 0.0001"
+    - "python ModelAll.py DES 0.0001"
+    - "python ModelAll.py LSST 0.0001"
+    - "python MakeResults.py CFHT"
+    - "python MakeResults.py CFHTa"
+    - "python MakeResults.py Euclid"
+    - "python MakeResults.py DES"
+    - "python MakeResults.py LSST"
+    - "python MakeFigure34567.py"
+    # Run demo script on painting lensed quasar systems
+    - "python paint_lensed_system.py"
+
+after_success:
+- codecov

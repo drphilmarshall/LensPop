@@ -1,13 +1,16 @@
-from __init__ import *
+from __future__ import absolute_import, division, print_function
+
 import cPickle
-import pyfits
 import sys,os
+import matplotlib
+matplotlib.use('Agg')
 import pylab as plt
 import glob
+import numpy
 
 params = {
    'axes.labelsize': 14,
-   'text.fontsize': 14,
+   'font.size': 14,
    'legend.fontsize': 10,
    'xtick.labelsize': 10,
    'ytick.labelsize': 10,
@@ -59,7 +62,7 @@ for survey in surveystoread:
     filename="%s_%s_lists.pkl"%(survey,sourcepop)
     lensparsfile="lenses_%s.txt"%survey
     f=open(lensparsfile,"w")
-    print 
+    print()
     #os.system("rm %s"%filename) #this line resets the read-in
     bl={}
     zs={}
@@ -107,9 +110,9 @@ for survey in surveystoread:
 
     chunki=0
     ilist=[]
-    print survey
+    print(survey)
     for chunk in filelist:
-        print chunki
+        print(chunki)
         chunki+=1
         f2=open(chunk,"rb")
         fracsky,sspl=cPickle.load(f2)
@@ -156,7 +159,7 @@ for survey in surveystoread:
                     #print sspl[i]["mag"][1]*sspl[i]["rs"][1],
                     try:
                         (sspl[i]["b"][1]**2-sspl[i]["rs"][1]**2)**0.5
-                    except FloatingPointError: print 0
+                    except FloatingPointError: print(0)
                 except KeyError:
                   pass
                 try:
@@ -209,11 +212,11 @@ for survey in surveystoread:
     else:
         surveyname=survey
 
-    print survey, "will find",
-    print numpy.sum(numpy.array(weights["resolved"]).ravel()),
-    print "lenses assuming poisson limited galaxy subtraction in all bands, or",
-    print numpy.sum(numpy.array(weights["rfpf"]).ravel()), 
-    print "lenses in the g-i difference images"
+    print(survey, "will find")
+    print(numpy.sum(numpy.array(weights["resolved"]).ravel()))
+    print("lenses assuming poisson limited galaxy subtraction in all bands, or")
+    print(numpy.sum(numpy.array(weights["rfpf"]).ravel())) 
+    print("lenses in the g-i difference images")
 
     f=open(filename,"wb")
     cPickle.dump([weights,bl,zs,rs,ms,zl,sigl,ql,mag],f,2)

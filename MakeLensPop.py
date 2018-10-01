@@ -1,4 +1,4 @@
-import distances
+from __future__ import division, absolute_import, print_function
 import lenspop
 
 # Simulate all lenses on the sky - takes about 7 hours:
@@ -6,13 +6,12 @@ import lenspop
 # Fast test - under a minute:
 fsky = 0.001
 
-D = distances.Distance()
+D = lenspop.Distance()
 
 Lpop = lenspop.LensPopulation(reset=True, sigfloor=100, zlmax=2, D=D)
 
 Ndeflectors = Lpop.Ndeflectors(2, zmin=0, fsky=fsky)
 
-L = lenspop.LensSample(reset=False, sigfloor=100, cosmo=[0.3,0.7,0.7],
-               sourcepop="lsst")
+L = lenspop.LensSample(reset=False, sigfloor=100, cosmo=[0.3,0.7,0.7], sourcepop="lsst")
 
 L.Generate_Lens_Pop(int(Ndeflectors), firstod=1, nsources=1, prunenonlenses=True)
